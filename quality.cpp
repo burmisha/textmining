@@ -13,9 +13,9 @@ double count_quality(const DocsWords & docs_words,
 		Discrete hat_p_wd(docs_words.unique_words_number());
 		for (int w = 0; w < docs_words.unique_words_number(d); ++w) {
 			int word_id = docs_words.word_id(d, w);
-			p_wd.inc(word_id, docs_words.word_counter(d, w));
+			p_wd.inc(word_id, docs_words.word_counter(d, w), 1);
 			for (int t = 0; t < phi_theta.topic_number(); ++t) {
-				hat_p_wd.inc(word_id, phi_theta.phi(t, word_id) * phi_theta.theta(d, t));
+				hat_p_wd.inc(word_id, phi_theta.phi(t, word_id) * phi_theta.theta(d, t), 1);
 			}
 		}
 		p_wd.update(); 		// p_wd is wormed

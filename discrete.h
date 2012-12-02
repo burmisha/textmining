@@ -11,7 +11,7 @@ private:
 public:
     int size() const;
     Discrete(int size);
-    void inc(int i, double delta);
+    void inc(int i, double delta, double gamma);
     void add_prob(int i, double delta);
     double get_counter(int i) const;
     void update(double alpha_null, const std::vector<double> & alpha);

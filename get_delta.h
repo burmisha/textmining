@@ -4,21 +4,24 @@
 #include <vector>
 #include <utility>
 #include "phi_theta.h"
+#include "hidden.h"
 
 class GetDelta {
 public:
     virtual double operator() (int document,
                                int word_id, int word_counter, int hidden_idx,
-                               const std::vector<std::pair<int, double> > & topics,
-                               const PhiTheta & phi_theta) = 0;
+                               const Hidden_Word & topics,
+                               const PhiTheta & phi_theta,
+                               double Z) = 0;
 };
 
 class LDA_GetDelta : public GetDelta {
 public:
     virtual double operator() (int document,
                                int word_id, int word_counter, int hidden_idx,
-                               const std::vector<std::pair<int, double> > & topics,
-                               const PhiTheta & phi_theta);
+                               const Hidden_Word & topics,
+                               const PhiTheta & phi_theta,
+                               double Z);
 };
 
 class PLSA_GetDelta : public GetDelta {
@@ -29,8 +32,9 @@ private:
 public:
     virtual double operator() (int document,
                                int word_id, int word_counter, int hidden_idx,
-                               const std::vector<std::pair<int, double> > & topics,
-                               const PhiTheta & phi_theta);
+                               const Hidden_Word & topics,
+                               const PhiTheta & phi_theta,
+                               double Z);
 };
 
 #endif

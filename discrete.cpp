@@ -11,10 +11,10 @@ Discrete::Discrete(int size):
     probability(size, 0), counter(size, 0), sum(1) {
 }
 
-void Discrete::inc(int i, double delta) {
-    sum -= my_pos(counter[i] + 0.2 - 1); // FIX
+void Discrete::inc(int i, double delta,double gamma) {
+    sum -= my_pos(counter[i] + gamma - 1);
     counter[i] += delta;
-    sum += my_pos(counter[i] + 0.2 - 1); // FIX
+    sum += my_pos(counter[i] + gamma - 1);
 }
 
 void Discrete::add_prob(int index, double delta) {
@@ -29,7 +29,6 @@ void Discrete::update(double param_zero, const std::vector<double> & parameters)
     double updated_sum = 0;
     for (int i = 0; i < size(); ++i) {
         probability[i] = my_pos(counter[i] + parameters[i] - 1) / sum;
-        if (probability[i] != probability[i]) { std::cout << "Error: update->my_pos";}
         updated_sum += counter[i];
     }
     sum = updated_sum;
@@ -47,7 +46,7 @@ void Discrete::update() {
 void Discrete::regularize(double added_sum) {
     double add = added_sum / size();
     for (int i = 0; i < size(); ++i) {
-        probability[i] = (probability[i] + add ) / (1 + added_sum);
+        probability[i] = (probability[i] + add) / (1 + added_sum);
     }
 }
 

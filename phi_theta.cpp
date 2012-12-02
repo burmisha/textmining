@@ -4,7 +4,7 @@
 #include "stdlib.h"
 void HyperParameter::inc(int first_idx, int second_idx, double delta) {
     if (!fixed) {
-        LatinLetter[first_idx].inc(second_idx, delta);
+        LatinLetter[first_idx].inc(second_idx, delta, gamma[second_idx]);
         updated_indexes.insert(first_idx);
     }
 }
@@ -17,7 +17,7 @@ void HyperParameter::update() {
     if (!fixed) {
         while (!updated_indexes.empty()) {
             std::set<int>::iterator it = updated_indexes.begin();
-            LatinLetter[*it].update(alpha_null, alpha);
+            LatinLetter[*it].update(gamma_sum, gamma);
             updated_indexes.erase(it);
         }
     }
@@ -31,16 +31,16 @@ const Discrete & HyperParameter::operator[](int i) const {
     return LatinLetter[i];
 }
 
-HyperParameter::HyperParameter(int size, const std::vector<double> & alpha):
-    LatinLetter(size, Discrete(alpha.size())),
-    alpha(alpha), alpha_null(0), fixed(false) {
-    for (size_t i = 0; i < this->alpha.size(); ++i) {
-        alpha_null += (this->alpha)[i];
+HyperParameter::HyperParameter(int size, const std::vector<double> & gamma):
+    LatinLetter(size, Discrete(gamma.size())),
+    gamma(gamma), gamma_sum(0), fixed(false) {
+    for (size_t i = 0; i < this->gamma.size(); ++i) {
+        gamma_sum += (this->gamma)[i];
     }
 }
 
-std::vector<double> HyperParameter::alpha_parameters() const {
-    return alpha;
+std::vector<double> HyperParameter::gamma_parameters() const {
+    return gamma;
 }
 
 std::vector<std::vector<std::pair<int, double> > > HyperParameter::top(int size) const {
@@ -67,7 +67,7 @@ PhiTheta::PhiTheta(const DocsWords & docs_words, const Distance & distance,
     for (int t = 0; t < topic_number; ++t) {
         int d = rand() * docs_words.docs_number() / RAND_MAX;
         for (int w = 0; w < docs_words.unique_words_number(d); ++w) {
-            Phi.inc(t,docs_words.word_id(d, w), docs_words.word_counter(d, w));
+            Phi.inc(t, docs_words.word_id(d, w), docs_words.word_counter(d, w));
             words_counter[docs_words.word_id(d, w)] += docs_words.word_counter(d, w);
         }
         Phi.update();
@@ -80,7 +80,7 @@ PhiTheta::PhiTheta(const DocsWords & docs_words, const Distance & distance,
         /* FIND BEST TOPIC */
         Discrete words_distribution(docs_words.unique_words_number()); // $$\hat p_d$$
         for (int w = 0; w < docs_words.unique_words_number(d); ++w) {
-            words_distribution.inc(docs_words.word_id(d, w), docs_words.word_counter(d, w));
+            words_distribution.inc(docs_words.word_id(d, w), docs_words.word_counter(d, w), 1);
         }
         words_distribution.update(); // NEW !!!
         int best_topic = 0;
@@ -153,7 +153,7 @@ PhiTheta::PhiTheta(const HyperParameter & Phi, const HyperParameter & Theta):
 }
 
 PhiTheta PhiTheta::save_phi(const DocsWords & docs_words) const {
-    PhiTheta phi_theta(this->Phi, HyperParameter(docs_words.docs_number(), (this->Theta).alpha_parameters()));
+    PhiTheta phi_theta(this->Phi, HyperParameter(docs_words.docs_number(), (this->Theta).gamma_parameters()));
 
     std::vector<double> words_counter(docs_words.unique_words_number(), 0);
     for (int d = 0; d < docs_words.docs_number(); ++d) {

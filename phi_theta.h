@@ -10,8 +10,8 @@
 class HyperParameter {
 private:
     std::vector<Discrete> LatinLetter;
-    const std::vector<double> alpha;
-    double alpha_null;
+    const std::vector<double> gamma;
+    double gamma_sum;
     std::set<int> updated_indexes;
     bool fixed;
 public:
@@ -22,7 +22,7 @@ public:
     Discrete & operator[](int);
     const Discrete & operator[](int) const;
     void set_fixed(bool);
-    std::vector<double> alpha_parameters() const;
+    std::vector<double> gamma_parameters() const;
     //HyperParameter same_empty(int new_size);
 };
 

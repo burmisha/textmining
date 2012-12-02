@@ -11,9 +11,10 @@
 
 double perform_algorithm(const DocsWords & ,
                        PhiTheta & ,
-                       hidden_type & ,
+                       Hidden_Collection & ,
                        Prepare & ,
                        GetDelta & ,
                        UpdateTime & ,
-                       Stabilized & );
+                       Stabilized &,
+                       double gamma );
 #endif
