@@ -19,29 +19,33 @@ int main() {
     const int topic_number = 20;
     setlocale(LC_ALL, "");
     std::ofstream answer_file;
-    answer_file.open("PLSA_t1000c200_t20_u20_s5_i100.txt");
+    answer_file.open("LDA_t1000c200_t20_a02b02_h6_U5000_s20_i500.txt");
+    //answer_file.open("PLSA_t1000c200_t20_Ud_s5_i2000.txt");
     answer_file << std::unitbuf;
-    FileHandler learning_files(std::string("d:\\base\\AlexRom\\final\\text "), std::string(".txt"), 1 ,     1000);
-    FileHandler  control_files(std::string("d:\\base\\AlexRom\\final\\text "), std::string(".txt"), 1001 ,  1200);
+    FileHandler learning_files(std::string("d:\\base\\final\\text "), std::string(".txt"), 1 ,     1000);
+    FileHandler  control_files(std::string("d:\\base\\final\\text "), std::string(".txt"), 1001 ,  1200);
     Map dictionary;
     dictionary.add_docs(learning_files);
     DocsWords docs_words(dictionary, learning_files);
     std::pair<DocsWords, DocsWords> control(docs_words.build_control(dictionary , control_files));
     DocsWords train = control.first, test = control.second;
 
-    std::vector<double> alpha(docs_words.unique_words_number(), 0.1);
-    std::vector<double> beta(topic_number, 0.1);
+    std::vector<double> alpha(docs_words.unique_words_number(), 0);
+    std::vector<double> beta(topic_number, 0);
     PhiTheta phi_theta(docs_words, KullbackLeibler(), alpha, beta);
 
     //hidden_type hidden = PLSA_hidden(docs_words, topic_number);
-    hidden_type hidden = LDA_hidden(docs_words);
+    hidden_type hidden = LDA_hidden(docs_words, 6);
 
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 500; ++i) {
         double time;
         {
             //PLSA_prepare prepare;   PLSA_GetDelta get_delta;
             LDA_prepare prepare;    LDA_GetDelta get_delta;
-            update_every update(100);          stabilized_after stabilized(1);
+            update_every update(5000);
+            //update_after_document update(0);
+            //update_after_collection update(0);
+            stabilized_after stabilized(1);
             time = perform_algorithm(docs_words, phi_theta, hidden, prepare, get_delta, update, stabilized);
         }
 
@@ -49,8 +53,11 @@ int main() {
         train_phi_theta.set_phi_fixed(true);
         {
             //hidden_type hidden_train = PLSA_hidden(train, topic_number);      PLSA_prepare prepare;   PLSA_GetDelta get_delta;
-            hidden_type hidden_train = LDA_hidden(train);                     LDA_prepare prepare;    LDA_GetDelta get_delta;
-            update_every update(20);           stabilized_after stabilized(5);
+            hidden_type hidden_train = LDA_hidden(train, 6);                     LDA_prepare prepare;    LDA_GetDelta get_delta;
+            update_every update(5000);
+            //update_after_document update(0);
+            //update_after_collection update(0);
+            stabilized_after stabilized(20);
             perform_algorithm(train, train_phi_theta, hidden_train, prepare, get_delta, update, stabilized);
         }
         std::cout << "i = " << i << std::endl;

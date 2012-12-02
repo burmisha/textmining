@@ -30,7 +30,7 @@ double perform_algorithm(const DocsWords & docs_words,
                 }
                 //std::cout << "d" << d << " w "<< w << "\r";
             }
-            if ((d % 100) == 0) { std::cout << "\r" << "d" << d << " of "<< docs_words.docs_number(); }
+            if ((d % 20) == 0) { std::cout << "\r" << "d" << d << " of "<< docs_words.docs_number(); }
         }
         std::cout << "\r" <<"Iteration made: " << ++iteration;
     } while (!stabilized(phi_theta));
