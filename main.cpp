@@ -9,20 +9,22 @@
 #include "distance.h"
 
 int main() {
-    const int TopicNumber = 3;
+    const int TopicNumber = 5;
     setlocale(LC_ALL, "");
+    std::cout.setf (std::ios::fixed, std::ios::floatfield);
+    std::cout.precision (6);
 
     FileHandler file_handler(std::string("d:\\base\\AlexRom\\final\\text "),
-                             std::string(".txt"), 1 , 10);
+                             std::string(".txt"), 1 , 200);
     Tree dictionary;
     dictionary.build(file_handler);
     DocsWords docsWords(dictionary, file_handler);
-    //PLSA count(docsWords, TopicNumber);
     KullbackLeibler KL;
-	LDA count(docsWords, TopicNumber, std::vector<double>(dictionary.wordNumber() + 1, 0.4), std::vector<double>(TopicNumber + 1, 0.6), KL);
+    PLSA count(docsWords, TopicNumber, KL);
+	//sLDA count(docsWords, TopicNumber, 0.4, std::vector<double>(dictionary.wordNumber() , 0.4), 0.6, std::vector<double>(TopicNumber, 0.6), KL);
     count.perform();
-    std::cout.setf (std::ios::fixed, std::ios::floatfield);
-    std::cout.precision (4);
-    std::cout << count;
+
+    //std::cout << count;
+    count.print(std::cout, dictionary);
     // system("pause");
 }

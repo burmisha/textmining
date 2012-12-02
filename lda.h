@@ -12,8 +12,8 @@ protected:
 public:
     explicit LDA(const DocsWords &,
                  int topic_number,
-                 const std::vector<double> & PhiParam,
-                 const std::vector<double> & ThetaParam,
+                 double Phi_zero, 	const std::vector<double> & PhiParam,
+                 double Theta_zero, const std::vector<double> & ThetaParam,
                  const Distance & distance);
 };
 

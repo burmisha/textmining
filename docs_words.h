@@ -13,7 +13,7 @@ private:
 public:
     DocsWords(const Dictionary & , FileHandler);
     int docs_number() const;
-    int total_words_number() const; 
+    // int total_words_number() const; 
     int total_words_number(int document) const;
     int unique_words_number() const;  // i.e. dictionary_words_number
     int unique_words_number(int document) const; 

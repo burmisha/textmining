@@ -2,6 +2,7 @@
 #define ALGORITHM_H
 
 #include <vector>
+#include <set>
 #include <iostream>
 #include "docs_words.h"
 #include "discrete.h"
@@ -9,17 +10,26 @@
 
 class Algorithm {
 protected:
+    DocsWords docsWords;
     std::vector<Discrete> Phi;
     std::vector<Discrete> Theta;
     std::vector<std::vector<std::vector<Pair> > > HiddenNumbers;
-    DocsWords docsWords;
+
+    std::set<int> updated_phi;
+    std::set<int> updated_theta;
+
+    const double Phi_zero;
+    const std::vector<double> PhiParam;
+    const double Theta_zero;
+    const std::vector<double> ThetaParam;
 
     explicit Algorithm(const DocsWords &,
                        int topic_number,
-                       const std::vector<double> & PhiParam,
-                       const std::vector<double> & ThetaParam,
+                       double Phi_zero,     const std::vector<double> & PhiParam,
+                       double Theta_zero,   const std::vector<double> & ThetaParam,
                        const Distance & distance);
-    int topicsNumber() const;
+    int topic_number() const;
+
 private:
     int stab_iteration;
     int upd_iteration;
@@ -37,6 +47,8 @@ private:
 
 public:
     void perform();
-    friend std::ostream & operator << (std::ostream &, const Algorithm &);};
+    friend std::ostream & operator << (std::ostream &, const Algorithm &);
+    std::ostream & print(std::ostream &, const Dictionary &) const;
+};
 
 #endif
