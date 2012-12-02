@@ -5,18 +5,16 @@
 
 class Dictionary {
 public:
-    virtual int getNumber(std::string const &) const  = 0;
-    virtual std::string getWord(int) const = 0;
+	Dictionary() {};
+	void add_docs(FileHandler);
+    virtual int id(std::string const &) const  = 0;
+    virtual std::string word(int) const = 0;
     virtual bool add (std::string const &) = 0;
-    virtual size_t wordNumber() const = 0;
-    // virtual void print() const = 0;
-    Dictionary() {};
-    //virtual bool dump (void) {};
-    //virtual bool load (void) {};
-    void build(FileHandler);
+    virtual int size() const = 0;
+
 };
 
-int checkWord(const std::string & word);
+bool good_word(const std::string & word);
 
 #endif
 

@@ -33,7 +33,7 @@ int DocsWords::word_counter(int document, int word_idx) const {
 }
 
 DocsWords::DocsWords(const Dictionary & dictionary, FileHandler file_handler):
-    dictionary_words_number(dictionary.wordNumber()) {
+    dictionary_words_number(dictionary.size()) {
     file_handler.drop();
     clock_t zeroTime = clock();
     while (file_handler.goto_next()) {
@@ -44,8 +44,8 @@ DocsWords::DocsWords(const Dictionary & dictionary, FileHandler file_handler):
         while (!file.eof()) {
             std::string word;
             file >> word;
-            if (dictionary.getNumber(word) >= 0) {
-                document.push_back(dictionary.getNumber(word));
+            if (dictionary.id(word) >= 0) {
+                document.push_back(dictionary.id(word));
             }
         }
 

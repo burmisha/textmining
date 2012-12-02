@@ -93,7 +93,7 @@ bool Algorithm::not_stabilised() {
     ++stab_iteration;
     //std::cout << *this << "  iteration made: " << stab_iteration << std::endl;
     std::cout << "  iteration made: " << stab_iteration << std::endl;
-    return stab_iteration < 200;
+    return stab_iteration < 3;
 }
 
 void Algorithm::update_if_needed() {
@@ -194,7 +194,7 @@ std::ostream & Algorithm::print(std::ostream & out, const Dictionary & dict) con
         out << "t" << t << " :";
         std::vector<Pair> top(Phi[t].top(20));
         for (size_t i = 0; i < top.size(); ++i) {
-            out << " " << dict.getWord(top[i].id) << " " << top[i].counter;
+            out << " " << dict.word(top[i].id) << " " << top[i].counter;
         }
         out << std::endl;
     }
