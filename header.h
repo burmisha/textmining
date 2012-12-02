@@ -21,6 +21,7 @@ using std::make_pair;
 using std::ostream;
 using std::ifstream;
 
+
 class Dictionary {
     public:
         virtual int getNumber(string const &) const  = 0;

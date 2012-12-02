@@ -1,7 +1,7 @@
 #ifndef TDW_H
 #define TDW_H
 #include "header.h"
-const int NumberOfHiddenParameters = 2;
+#include "file.h"
 
 struct HiddenParameter {
 	int TopicNumber;
@@ -26,6 +26,7 @@ class TopicsDocumentsWords {
     public:
         size_t TopicNumber;
         size_t WordNumber;
+		int NumberOfHiddenParameters;
         vector<vector<double> > DocTopics;			// p(d|t) = n_{td}
         vector<vector<double> > WordTopics;			// p(w|t) = n_{wt}
         vector<double> TopicWeights;				// p(t)
@@ -48,7 +49,7 @@ class TopicsDocumentsWords {
                 }
             }
         }
-        TopicsDocumentsWords(const Dictionary & , int );
+        TopicsDocumentsWords(const Dictionary & , int, int  );
 };
 
 #endif
