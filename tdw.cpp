@@ -7,7 +7,7 @@ vector<HiddenParameter> SampleTopicVector(const vector<double> & InitialVector, 
     vector<double> Summed(InitialVector.size(), 0);
     Summed[0] = InitialVector[0];
     for(size_t i = 0; i + 1 < Summed.size(); ++i) {
-        Summed[i + 1] = Summed[i] + InitialVector[i + 1];
+        Summed[i+1] = Summed[i] + InitialVector[i+1];
     }
     int SampledComponents = 0;
     do {

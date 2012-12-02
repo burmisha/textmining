@@ -12,7 +12,7 @@ int main() {
     cout << "Total time :" << (float)(clock() - firstTime) / CLOCKS_PER_SEC << endl;
     TopicsDocumentsWords TDW(TreeDict, TopicNumber, SampleSize);
     for (int i = 0; i < 4; ++i) {
-        performPLSA(TDW);
+    //    performPLSA(TDW);
     }
     system("pause");
 }
