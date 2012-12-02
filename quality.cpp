@@ -23,5 +23,6 @@ double count_quality(const DocsWords & docs_words,
 		sum += n_d * distance(p_wd, hat_p_wd);
 		n += n_d;
 	}
-	return exp( - sum / n);
+	//return exp( - sum / n);
+	return (sum / n);
 }

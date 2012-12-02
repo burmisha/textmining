@@ -20,9 +20,9 @@ void Dictionary::add_docs(FileHandler file_handler) {
                 add(word);
             }
         }
-        std::cout << "  dictionary for text \"" << file_handler.short_filename()
-                  << "\" built in " << (float)(clock() - first_time) / CLOCKS_PER_SEC << std::endl;
+        std::cout << "\r  dictionary for text \"" << file_handler.short_filename()
+                  << "\" built in " << (float)(clock() - first_time) / CLOCKS_PER_SEC;
         file.close();
     }
-    std::cout << "DICTIONARY: total time is " << (float)(clock() - zero_time) / CLOCKS_PER_SEC << std::endl;
+    std::cout << std::endl << "DICTIONARY: total time is " << (float)(clock() - zero_time) / CLOCKS_PER_SEC << std::endl;
 }

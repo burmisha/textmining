@@ -29,13 +29,15 @@ double perform_algorithm(const DocsWords & docs_words,
                 if (update_time(d, w, docs_words)) {
                     phi_theta.update();
                 }
+                //std::cout << "d" << d << " w "<< w << "\r";
             }
-            if ((d % 10) == 0) {
-                std::cout << "d#" << d << "of "<< docs_words.docs_number() << "\r";
+            if ((d % 100) == 0) {
+                std::cout << "\r" << "d" << d << " of "<< docs_words.docs_number();
             }
-        }
-        std::cout << std::endl << "Iteration made: " << ++iteration << std::endl;
-    } while (!stabilized(phi_theta));
-    return (float)(clock() - zero_time) / CLOCKS_PER_SEC;
 
+        }
+        std::cout << "\r" <<"Iteration made: " << ++iteration;
+    } while (!stabilized(phi_theta));
+    std::cout << std::endl;
+    return (float)(clock() - zero_time) / CLOCKS_PER_SEC;
 }

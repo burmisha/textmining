@@ -78,10 +78,10 @@ std::pair<DocsWords, DocsWords> DocsWords::build_control(const Dictionary & dict
         train.add_document(document_for_train);
         test.add_document(document_for_test);
 
-        std::cout << "  text " << file_handler.short_filename() << " added into control in " << (float)(clock() - firstTime) / CLOCKS_PER_SEC << std::endl;
+        std::cout << "\r  text \"" << file_handler.short_filename() << "\" added into control in " << (float)(clock() - firstTime) / CLOCKS_PER_SEC;
         file.close();
     }
-    std::cout << "CONTROL built in " << (float)(clock() - zeroTime) / CLOCKS_PER_SEC << std::endl;
+    std::cout << std::endl << "CONTROL built in " << (float)(clock() - zeroTime) / CLOCKS_PER_SEC << std::endl;
     return std::pair<DocsWords, DocsWords>(train, test);
 }
 
@@ -101,8 +101,8 @@ DocsWords::DocsWords(const Dictionary & dictionary, FileHandler file_handler):
             }
         }
         add_document(document);
-        std::cout << "  count words for text " << file_handler.short_filename() << " made in " << (float)(clock() - firstTime) / CLOCKS_PER_SEC << std::endl;
+        std::cout << "\r  count words for text \"" << file_handler.short_filename() << "\" made in " << (float)(clock() - firstTime) / CLOCKS_PER_SEC;
         file.close();
     }
-    std::cout << "DOCSWORDS: total time is " << (float)(clock() - zeroTime) / CLOCKS_PER_SEC << std::endl;
+    std::cout << std::endl << "DOCSWORDS: total time is " << (float)(clock() - zeroTime) / CLOCKS_PER_SEC << std::endl;
 }
