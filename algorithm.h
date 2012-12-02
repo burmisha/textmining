@@ -2,8 +2,10 @@
 #define ALGORITHM_H
 
 #include <vector>
+#include <iostream>
 #include "docs_words.h"
 #include "discrete.h"
+#include "distance.h"
 
 class Algorithm {
 protected:
@@ -15,7 +17,8 @@ protected:
     explicit Algorithm(const DocsWords &,
                        int topic_number,
                        const std::vector<double> & PhiParam,
-                       const std::vector<double> & ThetaParam);
+                       const std::vector<double> & ThetaParam,
+                       const Distance & distance);
     int topicsNumber() const;
 private:
     int stab_iteration;
@@ -34,6 +37,6 @@ private:
 
 public:
     void perform();
-};
+    friend std::ostream & operator << (std::ostream &, const Algorithm &);};
 
 #endif

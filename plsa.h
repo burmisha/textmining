@@ -10,7 +10,9 @@ protected:
     virtual void prepareTopic(int document, int word, int topic);
     virtual double getDelta(int document, int word, int topic) const;
 public:
-    explicit PLSA(const DocsWords &, int topic_number);
+    explicit PLSA(const DocsWords &,
+                  int topic_number,
+                  const Distance & distance);
 };
 
 #endif
