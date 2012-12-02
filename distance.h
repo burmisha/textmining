@@ -1,5 +1,4 @@
-#ifndef DISTANCE_H
-#define DISTANCE_H
+#pragma once
 
 #include "discrete.h"
 
@@ -26,5 +25,3 @@ public:
     virtual double operator()(const Discrete & first,
                               const Discrete & second) const ;
 };
-
-#endif

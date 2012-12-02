@@ -75,7 +75,7 @@ PhiTheta::PhiTheta(const DocsWords & docs_words, const Distance & distance,
 
     const int R = 3 * topic_number;
     for (int r = 0; r < R; ++r) {
-        int d = rand() * docs_words.docs_number() / RAND_MAX;
+        int d = rand() * docs_words.docs_number() / RAND_MAX; 
 
         /* FIND BEST TOPIC */
         Discrete words_distribution(docs_words.unique_words_number()); // $$\hat p_d$$
@@ -105,16 +105,13 @@ PhiTheta::PhiTheta(const DocsWords & docs_words, const Distance & distance,
                              * Phi[t].get_counter(docs_words.word_id(d,w))
                              / docs_words.total_words_number(d)
                              / words_counter[docs_words.word_id(d, w)];
-                if (add != add) {
-                    /*std::cout << d << " " << t << " " << w << " " <<  docs_words.total_words_number(d) << " " << docs_words.word_id(d, w) <<" "  << words_counter[docs_words.word_id(d, w)];
-                    system("pause");
-                    exit(5);*/
-                } else {
+                if (add == add) {
                     Theta[d].add_prob(t, add);
                 }
             }
         }
     }
+
 
     /* REGULARIZE */
     const double small = 0.05;
@@ -168,7 +165,7 @@ PhiTheta PhiTheta::save_phi(const DocsWords & docs_words) const {
                 double add = static_cast<double>(docs_words.word_counter(d, w))
                              * Phi[t].get_counter(docs_words.word_id(d,w))
                              / docs_words.total_words_number(d)
-                             / words_counter[docs_words.word_id(d, w)];
+                             / words_counter[docs_words.word_id(d, w)]; //devide over zero
                 if (add == add) {
                     phi_theta.Theta[d].add_prob(t, add);
                 }

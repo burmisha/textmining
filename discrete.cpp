@@ -11,7 +11,7 @@ Discrete::Discrete(int size):
     probability(size, 0), counter(size, 0), sum(1) {
 }
 
-void Discrete::inc(int i, double delta,double gamma) {
+void Discrete::inc(int i, double delta, double gamma) {
     sum -= my_pos(counter[i] + gamma - 1);
     counter[i] += delta;
     sum += my_pos(counter[i] + gamma - 1);

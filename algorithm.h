@@ -10,11 +10,11 @@
 #include "prepare.h"
 
 double perform_algorithm(const DocsWords & ,
-                       PhiTheta & ,
-                       Hidden_Collection & ,
-                       Prepare & ,
-                       GetDelta & ,
-                       UpdateTime & ,
-                       Stabilized &,
-                       double gamma );
+                         PhiTheta & ,
+                       	 Hidden_Collection & ,
+                         Prepare & ,
+                         GetDelta & ,
+                         UpdateTime & ,
+                         Stabilized &,
+                         double gamma );
 #endif

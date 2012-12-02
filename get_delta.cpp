@@ -17,9 +17,8 @@ double PLSA_GetDelta::operator() (int document,
                                   const PhiTheta & phi_theta,
                                   double Z)  {
     const std::pair<int, double> & topic = hidden_word.topic[hidden_idx];
-    if ((my_round(topic.second) > 0)
-            || ((phi_theta.phi(topic.first, word_id) > 0)
-                && (phi_theta.theta(document, topic.first) > 0)) ) {
+    if ( (phi_theta.phi(topic.first, word_id) > 0)
+                && (phi_theta.theta(document, topic.first) > 0)) {
         return word_counter * phi_theta.phi(topic.first, word_id)
                * phi_theta.theta(document, topic.first) / Z
                - topic.second;
