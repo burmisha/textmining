@@ -21,8 +21,7 @@ double perform_algorithm(const DocsWords & docs_words,
                     int topic = hidden[d][w][i].first;
                     double delta = get_delta(d, docs_words.word_id(d, w), docs_words.word_counter(d, w),
                                              i, hidden[d][w], phi_theta);
-                    delta = (delta != delta) ? 0 : delta; // silly protection from errors
-                    //std::cout << delta << " ";
+                    delta = (delta != delta) ? 0 : delta; // silly protection from errors   //std::cout << delta << " ";
                     hidden[d][w][i].second += delta;
                     phi_theta.inc(d, docs_words.word_id(d, w), topic, delta);
                 }
@@ -31,10 +30,7 @@ double perform_algorithm(const DocsWords & docs_words,
                 }
                 //std::cout << "d" << d << " w "<< w << "\r";
             }
-            if ((d % 100) == 0) {
-                std::cout << "\r" << "d" << d << " of "<< docs_words.docs_number();
-            }
-
+            if ((d % 100) == 0) { std::cout << "\r" << "d" << d << " of "<< docs_words.docs_number(); }
         }
         std::cout << "\r" <<"Iteration made: " << ++iteration;
     } while (!stabilized(phi_theta));

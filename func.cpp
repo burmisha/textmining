@@ -20,3 +20,7 @@ double my_abs(double d) {
         return 0;
     }
 }
+
+double my_pos(double d) {
+    return (d > 0) ? d : 0;
+}

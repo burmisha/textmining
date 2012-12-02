@@ -17,4 +17,16 @@ public:
     bool operator() (int document, int word_index, const DocsWords &);
 };
 
+class update_after_document : public UpdateTime {
+public:
+    update_after_document();
+    bool operator() (int document, int word_index, const DocsWords &);
+};
+
+class update_after_collection : public UpdateTime {
+public:
+    update_after_collection();
+    bool operator() (int document, int word_index, const DocsWords &);
+};
+
 #endif

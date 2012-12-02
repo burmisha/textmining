@@ -3,5 +3,6 @@
 
 int my_round(double);
 double my_abs(double);
+double my_pos(double);
 
 #endif

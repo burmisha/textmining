@@ -1,5 +1,7 @@
 #include <algorithm>
+#include <iostream>
 #include "discrete.h"
+#include "func.h"
 
 int Discrete::size() const {
     return static_cast<int>(probability.size());
@@ -25,7 +27,8 @@ double Discrete::get_counter(int index) const {
 void Discrete::update(double param_zero, const std::vector<double> & parameters) {
     double updated_sum = 0;
     for (int i = 0; i < size(); ++i) {
-        probability[i] = (counter[i] + parameters[i]) / (sum + param_zero);
+        probability[i] = my_pos(counter[i] + parameters[i]) / my_pos(sum + param_zero);
+        if (probability[i] != probability[i]) { std::cout << "Error: update->my_pos";}
         updated_sum += counter[i];
     }
     sum = updated_sum;
