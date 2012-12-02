@@ -5,26 +5,26 @@
 
 class Distance {
 public:
-	virtual double operator()(const Discrete & first,
-							  const Discrete & second) const = 0;
+    virtual double operator()(const Discrete & first,
+                              const Discrete & second) const = 0;
 };
 
 class KullbackLeibler : public Distance {
 public:
-	virtual double operator()(const Discrete & first,
-							  const Discrete & second) const ;
+    virtual double operator()(const Discrete & first,
+                              const Discrete & second) const ;
 };
 
 class Chi_squared : public Distance {
 public:
-	virtual double operator()(const Discrete & first,
-							  const Discrete & second) const ;
+    virtual double operator()(const Discrete & first,
+                              const Discrete & second) const ;
 };
 
 class Hellinger : public Distance {
 public:
-	virtual double operator()(const Discrete & first,
-							  const Discrete & second) const ;
+    virtual double operator()(const Discrete & first,
+                              const Discrete & second) const ;
 };
 
 #endif

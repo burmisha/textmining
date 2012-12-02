@@ -1,15 +1,12 @@
-#ifndef MAP_H
-#define MAP_H
+#ifndef DICT_MAP_H
+#define DICT_MAP_H
 
 #include "dictionary.h"
 #include <map>
 #include <vector>
-//#include <string>
 
-
-class Map : public Dictionary{
-	std::map<std::string, int> word_id_map;
-    //int unique_words_number;
+class Map : public Dictionary {
+    std::map<std::string, int> word_id_map;
     std::vector<std::string> word_by_id;
 public:
     Map();

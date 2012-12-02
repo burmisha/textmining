@@ -1,27 +1,24 @@
 #ifndef DISCRETE_H
 #define DISCRETE_H
 #include <vector>
-#include "pair.h"
+#include <utility>
 
 class Discrete {
-    //friend class Distance;
 private:
-    // std::vector<double> parameters;
     std::vector<double> probability;
     std::vector<double> counter;
     double sum;
 public:
     int size() const;
     Discrete(int size);
-    bool inc(int i, double delta);
+    void inc(int i, double delta);
     void add_prob(int i, double delta);
     double get_counter(int i) const;
-    void update(double param_zero, const std::vector<double> & parameters);
-    //void regularize(double addend);
+    void update(double alpha_null, const std::vector<double> & alpha);
+    void update();
+    void regularize(double added_sum);
     double operator() (int index) const;
-    std::vector<Pair> top(int number) const;
-
-    // void set_counter(int index, double counter);
+    std::vector<std::pair<int, double> > top(int number) const;
 };
 
 #endif

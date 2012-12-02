@@ -4,7 +4,7 @@
 FileHandler::FileHandler(const std::string & prefix, const std::string & extension,
                          int min_file_number, int max_file_number):
     prefix(prefix),  extension(extension),
-    current_file(min_file_number - 1),  max_file_number(max_file_number) {
+    min_file_number(min_file_number),  max_file_number(max_file_number), current_file(min_file_number - 1) {
 };
 
 std::string FileHandler::filename() const {
@@ -25,7 +25,7 @@ bool FileHandler::goto_next() {
 };
 
 void FileHandler::drop() {
-    current_file = 0;
+    current_file = min_file_number;
 };
 
 

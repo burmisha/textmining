@@ -8,8 +8,9 @@ class FileHandler {
 private:
     const std::string prefix;
     const std::string extension;
-    int current_file;
+    int min_file_number;
     int max_file_number;
+    int current_file;
 public:
     FileHandler(const std::string & prefix, const std::string & extension,
                 int min_file_number, int max_file_number);
