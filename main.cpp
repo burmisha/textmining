@@ -15,8 +15,8 @@
 #include "quality.h"
 
 int main() {
-    const int topic_number = 20;
-    const double gamma = 0.05;
+    const int topic_number = 5;
+    const double gamma = 0.01;
     const std::string prefix("d:\\base\\Aleksander_texts_final\\text ");
     const std::string suffix(".txt");
     setlocale(LC_ALL, "");
@@ -27,7 +27,7 @@ int main() {
     const int last_doc = 1200;
     const int update_freq = 5000;
     const int stab_freq_on_training = 20;
-    const int total_iterations = 1000;
+    const int total_iterations = 30;
 
     std::stringstream answer_filename;
     answer_filename << "PLSA_ROBx1_t" << middle_doc - begin_doc + 1 << "c" << last_doc - middle_doc << "_t" << topic_number << "_u";
@@ -48,7 +48,11 @@ int main() {
     Map dictionary;
     dictionary.add_docs(learning_files);
     DocsWords docs_words(dictionary, learning_files);
-    std::pair<DocsWords, DocsWords> control(docs_words.build_control(dictionary , control_files));
+    std::cout << dictionary.size() << std::endl;
+    for (int i = 0; i < docs_words.docs_number(); ++i) {
+    //    std::cout << i << " " << docs_words.total_words_number(i) << " " << docs_words.unique_words_number(i) << std::endl;
+    }
+/*    std::pair<DocsWords, DocsWords> control(docs_words.build_control(dictionary , control_files));
     DocsWords train = control.first, test = control.second;
 
     const double param = 1; // 1 - for PLSA.
@@ -86,11 +90,13 @@ int main() {
             perform_algorithm(train, train_phi_theta, hidden_train, prepare, get_delta, update, stabilized, gamma); // LOOK: gamma is 0
         }
         std::cout << "i = " << i << std::endl;
-        answer_file << time << " "
-                    << count_quality(test, train_phi_theta, KullbackLeibler()) << " "
-                    << count_quality(test, train_phi_theta, Chi_squared()) << " "
-                    << count_quality(test, train_phi_theta, Hellinger()) << std::endl;
+        answer_file << time
+                    << " " << count_quality(test, train_phi_theta, KullbackLeibler())
+                    //<< " " << count_quality(test, train_phi_theta, Chi_squared())
+                    //<< " " << count_quality(test, train_phi_theta, Hellinger())
+                    << std::endl;
     }
     std::cout << std::endl;
     answer_file.close();
+*/
 }

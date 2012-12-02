@@ -44,29 +44,35 @@ double perform_algorithm(const DocsWords & docs_words,
                     if (update_time(d, w, docs_words)) {
                         phi_theta.update();
                     }
-                    //const double ZZ = count_Z(d, word_id, word, phi_theta);
-
-                    double temp_pi = 1 * word.pi + n_dw * gamma / nu - Z; // LOOK at 2
-                    word.pi = my_pos((temp_pi != temp_pi) ? 0 : temp_pi);
-                    word.pi = my_pos(temp_pi);
-                    new_nu += docs_words.word_counter(d, w) * word.pi / Z;
-
+                    const double Z_new = count_Z(d, word_id, word, phi_theta) - word.pi;
+                    //const double Z_new = Z - word.pi;
+                    double temp_pi = n_dw * gamma / nu - Z_new;
+                    const double old_pi = word.pi;
+                    word.pi = my_pos((temp_pi != temp_pi) ? 0 : temp_pi); // silly protection from errors
+                    new_nu += docs_words.word_counter(d, w) * word.pi / (word.pi + Z_new);
+                    /*const double Z_new = count_Z(d, word_id, word, phi_theta);// - word.pi;
+                    //const double Z_new = Z - word.pi;
+                    double temp_pi = word.pi + n_dw * gamma / nu - Z_new;
+                    word.pi = my_pos((temp_pi != temp_pi) ? 0 : temp_pi); // silly protection from errors
+                    new_nu += docs_words.word_counter(d, w) * word.pi / Z_new;*/
                 }
                 nu = new_nu;
-                /*double wws = 0;
+
+                double wws = 0;
                 for (int ww = 0; ww < docs_words.unique_words_number(d); ++ww) {
                     wws += hidden_collection.doc[d].word[ww].pi;
-                }*/
-                /*for (int ww = 0; ww < docs_words.unique_words_number(d); ++ww) {
+                }
+                for (int ww = 0; ww < docs_words.unique_words_number(d); ++ww) {
                     hidden_collection.doc[d].word[ww].pi *= gamma/wws;
                 }
                 wws = 0;
                 for (int ww = 0; ww < docs_words.unique_words_number(d); ++ww) {
                     wws += hidden_collection.doc[d].word[ww].pi;
-                }*/
-                /*std::cout << " " << wws / gamma << " " << nu
-                            << " " << docs_words.unique_words_number(d)
-                            << " " << docs_words.total_words_number(d)
+                }
+                /*std::cout << " " << wws / gamma
+                            // << " " << nu
+                            //<< " " << docs_words.unique_words_number(d)
+                            //<< " " << docs_words.total_words_number(d)
                             << " | ";*/
             }
             if ((d % 20) == 0) { std::cout << "\r" << "d" << d << " of "<< docs_words.docs_number(); }
