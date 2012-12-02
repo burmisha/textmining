@@ -82,6 +82,7 @@ PhiTheta::PhiTheta(const DocsWords & docs_words, const Distance & distance,
         for (int w = 0; w < docs_words.unique_words_number(d); ++w) {
             words_distribution.inc(docs_words.word_id(d, w), docs_words.word_counter(d, w));
         }
+        words_distribution.update(); // NEW !!!
         int best_topic = 0;
         double min_distance = distance(Phi[0], words_distribution);
         for (int t = 1; t < topic_number; ++t) {

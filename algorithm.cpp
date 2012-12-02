@@ -4,19 +4,13 @@
 
 #include "algorithm.h"
 
-Algorithm::Algorithm(const DocsWords & docs_words,
-                     PhiTheta & phi_theta,
-                     hidden_type & hidden,
-                     Prepare & prepare,
-                     GetDelta & get_delta,
-                     UpdateTime & update_time,
-                     Stabilized & stabilized):
-    docs_words(docs_words), phi_theta(phi_theta),
-    hidden(hidden), prepare(prepare), get_delta(get_delta),
-    stabilized(stabilized), update_time(update_time) {
-}
-
-void Algorithm::operator() (void) {
+double perform_algorithm(const DocsWords & docs_words,
+                       PhiTheta & phi_theta,
+                       hidden_type & hidden,
+                       Prepare & prepare,
+                       GetDelta & get_delta,
+                       UpdateTime & update_time,
+                       Stabilized & stabilized) {
     clock_t zero_time = clock();
     int iteration = 0;
     do {
@@ -36,9 +30,12 @@ void Algorithm::operator() (void) {
                     phi_theta.update();
                 }
             }
-            std::cout << "d#" << d << " ";
+            if ((d % 10) == 0) {
+                std::cout << "d#" << d << "of "<< docs_words.docs_number() << "\r";
+            }
         }
         std::cout << std::endl << "Iteration made: " << ++iteration << std::endl;
     } while (!stabilized(phi_theta));
-    std::cout <<std::endl<< "Algorithm PERFORMED. Total time is " << (float)(clock() - zero_time) / CLOCKS_PER_SEC << std::endl;
+    return (float)(clock() - zero_time) / CLOCKS_PER_SEC;
+
 }

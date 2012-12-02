@@ -12,7 +12,7 @@ hidden_type PLSA_hidden (const DocsWords & docs_words, int topic_number) {
     return hidden;
 }
 
-hidden_type LDA_Hidden(const DocsWords & docs_words) {
+hidden_type LDA_hidden(const DocsWords & docs_words) {
     hidden_type hidden;
     for (int d = 0; d < docs_words.docs_number(); ++d) {
         std::vector<std::vector<std::pair<int, double> > > document;

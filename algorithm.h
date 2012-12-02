@@ -9,19 +9,11 @@
 #include "update_time.h"
 #include "prepare.h"
 
-class Algorithm {
-private:
-    DocsWords docs_words;
-    PhiTheta & phi_theta;
-    hidden_type & hidden;
-    Prepare & prepare;
-    GetDelta & get_delta;
-    Stabilized & stabilized;
-    UpdateTime & update_time;
-public:
-    void operator() (void);
-    explicit Algorithm(const DocsWords &, PhiTheta &, hidden_type &,
-                       Prepare &, GetDelta &, UpdateTime &, Stabilized &);
-};
-
+double perform_algorithm(const DocsWords & ,
+                       PhiTheta & ,
+                       hidden_type & ,
+                       Prepare & ,
+                       GetDelta & ,
+                       UpdateTime & ,
+                       Stabilized & );
 #endif

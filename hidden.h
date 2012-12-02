@@ -3,6 +3,7 @@
 #include <vector>
 #include <utility>
 #include "docs_words.h"
+
 typedef std::vector<std::vector<std::vector<std::pair<int, double> > > > hidden_type;
 
 hidden_type PLSA_hidden(const DocsWords &, int topic_number);

@@ -22,7 +22,7 @@ public:
     Discrete & operator[](int);
     const Discrete & operator[](int) const;
     void set_fixed(bool);
-    std::vector<double> alpha_parameters() const; 
+    std::vector<double> alpha_parameters() const;
     //HyperParameter same_empty(int new_size);
 };
 

@@ -25,7 +25,7 @@ bool FileHandler::goto_next() {
 };
 
 void FileHandler::drop() {
-    current_file = min_file_number;
+    current_file = min_file_number - 1;
 };
 
 
