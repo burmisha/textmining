@@ -1,4 +1,4 @@
-#include "header.h"
+#include "tree.h"
 
 const int IMPOSSIBLE = -1;
 
@@ -27,7 +27,7 @@ bool tree::add(string const & word)  {
     }
     ++TotalWordNumber;
     current->value = new wordID;
-    current->value->id = TotalWordNumber;
+    current->value->id = TotalWordNumber - 1;
     current->value->word = word;
     if (comparasion > 0) {
         parent->left = current;
@@ -48,10 +48,6 @@ tree::tree():   TotalWordNumber(0),
         cout << "Can't malloc memory for new node" << endl;
         return; // this is great breeeeeed
     }
-    /*if ( (root->value = (wordID *) malloc(sizeof(wordID))) == NULL){
-        cout << "Can't malloc memory for new node" << endl;
-        return; // this is great breeeeeed
-    }*/
     root->value = new wordID;
     root->value->word = string("");
     root->value->id = IMPOSSIBLE;   //  addressing it must cause error
@@ -81,13 +77,12 @@ int tree::getNumber(string const & word)  const {
         if (comparation == 0) {
             return current->value->id;
         }
-        if (comparation < 0) {
+        if (comparation > 0) {
             current = current->left;
         } else {
             current = current->right;
         }
     }
-    cout << "ERROR: No such Word!" << endl;
     return -1;
 }
 

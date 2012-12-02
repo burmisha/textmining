@@ -21,19 +21,6 @@ using std::make_pair;
 using std::ostream;
 using std::ifstream;
 
-struct wordID {
-	string word;
-	int id;
-};
-
-typedef struct nodeStruct {
-	nodeStruct * parent;
-	nodeStruct * left;
-	nodeStruct * right;
-	wordID * value;
-	int h;
-} node;
-
 class Dictionary {
     public:
         virtual int getNumber(string const &) const  = 0;
@@ -46,19 +33,8 @@ class Dictionary {
 		//virtual bool load (void) {};
 };
 
-class tree : public Dictionary {
-	private:
-		node * root;
-		int TotalWordNumber;
-		vector<string> WordByID;
-	public:
-		tree();
-		void print() const;
-		bool add(string const &) ; 
-		int getNumber(string const &) const;
-        string getWord(int) const;
-		size_t WordNumber() const;
-};
+
+
 
 int checkWord(const string & word);
 void BuildDictionary(Dictionary & Dict);
