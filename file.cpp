@@ -7,16 +7,18 @@ string fileHandler::NewFileName() {
 	return prefix + number.str() + extension;
 
 };
+
 bool  fileHandler::areMoreFiles() {
-    return CurrentFile <7146; //7164
+    return CurrentFile < 2; //7164
 };
+
 fileHandler::fileHandler():
-    prefix("d:\\base_main\\AlexRom\\final\\text "),
+    prefix("D:\\NIR\\texts\\test\\text "),
     extension(".txt"),
     CurrentFile(0) {
 };
+
 int fileHandler::CurrentFileID() {
-    //cout << CurrentFile << "||";
     return CurrentFile;
 }
 

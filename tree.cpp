@@ -21,13 +21,12 @@ bool tree::add(string const & word)  {
             current = current->right;
         }
     }
-    if((current = (node*)malloc(sizeof(node))) == NULL) {
+    if ((current = (node *) malloc(sizeof(node))) == NULL) {
         cout << "Can't malloc memory for new node" << endl;
         return false;
     }
-    ++TotalWordNumber;
     current->value = new wordID;
-    current->value->id = TotalWordNumber - 1;
+    current->value->id = TotalWordNumber;
     current->value->word = word;
     if (comparasion > 0) {
         parent->left = current;
@@ -39,7 +38,8 @@ bool tree::add(string const & word)  {
     current->right = NULL;
     //функции балансировки
     WordByID.push_back(word);
-    return true;    //  added
+	TotalWordNumber += 1;
+    return true;    // successfully added
 };
 
 tree::tree():   TotalWordNumber(0),
@@ -55,20 +55,6 @@ tree::tree():   TotalWordNumber(0),
     root->parent = NULL;
     root->right = NULL;
 } ;
-
-void printTree(node * root) {
-    if (root->left != NULL) {
-        printTree(root->left);
-    }
-    cout << "|" << root->value->word << endl;
-    if (root->right != NULL) {
-        printTree(root->right);
-    }
-}
-
-void tree::print() const {
-    printTree(root);
-}
 
 int tree::getNumber(string const & word)  const {
     node * current = root;
@@ -99,3 +85,16 @@ size_t tree::WordNumber() const {
     return TotalWordNumber;
 }
 
+void printTree(node * root) {
+    if (root->left != NULL) {
+        printTree(root->left);
+    }
+    cout << "|" << root->value->word << endl;
+    if (root->right != NULL) {
+        printTree(root->right);
+    }
+}
+
+void tree::print() const {
+    printTree(root);
+}

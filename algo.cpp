@@ -5,6 +5,7 @@ ostream & operator << (ostream& out, const vector<T> & vec) {
 	for (size_t i = 0; i < vec.size() ; ++i) {
 			out << vec[i] << " ";
 	}
+	out << endl;
 	return out;
 }
 
@@ -13,18 +14,18 @@ bool performPLSA(TopicsDocumentsWords & TDW) {
 	for (size_t d = 0; d < TDW.DocNumber(); ++d) {
 		for (size_t w = 0; w < TDW.DocsWords[d].size(); ++w) {
 			vector<double> allHiddenParameteres(TDW.TopicNumber);
-
 			for (size_t t = 0; t < TDW.TopicNumber; ++t) {
 				allHiddenParameteres[t] = TDW.TopicWeights[t]*TDW.DocTopics[d][t]*TDW.WordTopics[TDW.DocsWords[d][w].WordNumber][t];
 			}
-			TDW.DocsWords[d][w].HiddenParameters = SampleTopicVector(allHiddenParameteres, TDW.NumberOfHiddenParameters);
+			cout << allHiddenParameteres;
+			TDW.DocsWords[d][w].HiddenParameters = SampleTopicVector(allHiddenParameteres, NumberOfHiddenParameters);
 		}
 	}
 	//M - Step
 	vector<double> Stopics(TDW.TopicNumber, 0);
 	for (size_t d = 0; d < TDW.DocNumber(); ++d) {
 		for (size_t w = 0; w < TDW.DocsWords[d].size(); ++w) {
-			for (int t = 0; t < TDW.NumberOfHiddenParameters; ++t) {
+			for (int t = 0; t < NumberOfHiddenParameters; ++t) {
 				Stopics[TDW.DocsWords[d][w].HiddenParameters[t].TopicNumber] += TDW.DocsWords[d][w].HiddenParameters[t].Prob * TDW.DocsWords[d][w].WordCount;
 			}
 		}
@@ -42,7 +43,7 @@ bool performPLSA(TopicsDocumentsWords & TDW) {
 	TDW.MultWordTopics(0);	//	p(w|t) := 0
 	for (size_t d = 0; d < TDW.DocNumber(); ++d) {
 		for (size_t w = 0; w < TDW.DocsWords[d].size(); ++w) {
-			for (int t = 0; t < TDW.NumberOfHiddenParameters; ++t) {
+			for (int t = 0; t < NumberOfHiddenParameters; ++t) {
 				TDW.DocTopics[d][TDW.DocsWords[d][w].HiddenParameters[t].TopicNumber] += TDW.DocsWords[d][w].HiddenParameters[t].Prob * TDW.DocsWords[d][w].WordCount;
 				TDW.WordTopics[TDW.DocsWords[d][w].WordNumber][TDW.DocsWords[d][w].HiddenParameters[t].TopicNumber] += TDW.DocsWords[d][w].HiddenParameters[t].Prob * TDW.DocsWords[d][w].WordCount;
 			}

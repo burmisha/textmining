@@ -1,28 +1,36 @@
 #include "tdw.h"
 #include "file.h"
 
+template <typename T>
+vector<T> SummedVector(const vector<T> & InitialVector) {
+	vector<T> Summed(InitialVector.size(), 0);
+    Summed[0] = InitialVector[0];
+    for (size_t i = 0; i + 1 < Summed.size(); ++i) {
+        Summed[i+1] = Summed[i] + InitialVector[i+1];
+    }
+	return Summed;
+};
+
+//int BinaryMinGreaterSearch()
+
 vector<HiddenParameter> SampleTopicVector(const vector<double> & InitialVector, int SampleSize) {
     vector<HiddenParameter> ResultVector(SampleSize);
     vector<bool> UsedElements(InitialVector.size(), false);
-    vector<double> Summed(InitialVector.size(), 0);
-    Summed[0] = InitialVector[0];
-    for(size_t i = 0; i + 1 < Summed.size(); ++i) {
-        Summed[i+1] = Summed[i] + InitialVector[i+1];
-    }
+	vector<double> Summed = SummedVector(InitialVector);
     int SampledComponents = 0;
     do {
         double randValue = (double)rand() / RAND_MAX * Summed[Summed.size()-1];
         int left = 0, right = InitialVector.size() - 1; //binarySearch
         int center;
-        while(right - left > 1) {
+        while (right > left) {
             center = (left + right) / 2;
-            if(Summed[center] > randValue) {
+            if (Summed[center] >= randValue) {
                 right = center;
             } else {
-                left = center;
+                left = center + 1;
             }
         }
-        if(!UsedElements[left]) {
+        if (!UsedElements[left]) {
             UsedElements[left] = true;
             ResultVector[SampledComponents] = HiddenParameter(left, InitialVector[left]);
             ++SampledComponents;
@@ -31,10 +39,9 @@ vector<HiddenParameter> SampleTopicVector(const vector<double> & InitialVector, 
     return ResultVector;
 };
 
-TopicsDocumentsWords::TopicsDocumentsWords(const Dictionary & Dict, int TopicNumber, int NumberOfHiddenParameters):
+TopicsDocumentsWords::TopicsDocumentsWords(const Dictionary & Dict, int TopicNumber):
     TopicNumber(TopicNumber),
-    WordNumber(Dict.WordNumber()),
-	NumberOfHiddenParameters(NumberOfHiddenParameters) {
+    WordNumber(Dict.WordNumber()) {
     fileHandler files;
     while(files.areMoreFiles()) {
         clock_t firstTime = clock();
@@ -63,7 +70,7 @@ TopicsDocumentsWords::TopicsDocumentsWords(const Dictionary & Dict, int TopicNum
 
         DocWordElements.push_back(DocWordElement(Doc[i], i - s + 1));
         DocsWords.push_back(DocWordElements);
-        cout << "Init for text #" << files.CurrentFileID() << " : " << (float)(clock() - firstTime) / CLOCKS_PER_SEC << endl;
+        cout << "Time for text #" << files.CurrentFileID() << " : " << (float)(clock() - firstTime) / CLOCKS_PER_SEC << endl;
         file.close();
     }
 

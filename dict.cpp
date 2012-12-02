@@ -17,7 +17,7 @@ void BuildDictionary(Dictionary & Dict) {
             Dict.add(word);
             //Dict.print();
         }
-        cout << "Dictionary for text #" << files.CurrentFileID() << " : " << (float)(clock() - firstTime) / CLOCKS_PER_SEC << endl;
+        cout << "Time for text #" << files.CurrentFileID() << " : " << (float)(clock() - firstTime) / CLOCKS_PER_SEC << endl;
         file.close();
     }
 }
