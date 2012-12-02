@@ -15,16 +15,16 @@
 #include "quality.h"
 
 int main() {
-    const int topic_number = 5;
-    const double gamma = 0.001;
+    const int topic_number = 20;
+    const double gamma = 0.05;
     const std::string prefix("d:\\base\\Aleksander_texts_final\\text ");
     const std::string suffix(".txt");
     setlocale(LC_ALL, "");
     std::ofstream answer_file;
 
     const int begin_doc = 1;
-    const int middle_doc = 100;
-    const int last_doc = 120;
+    const int middle_doc = 1000;
+    const int last_doc = 1200;
     const int update_freq = 5000;
     const int stab_freq_on_training = 20;
     const int total_iterations = 1000;
