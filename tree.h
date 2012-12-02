@@ -1,31 +1,34 @@
 #ifndef TREE_H
 #define TREE_H
-#include "header.h"
+#include <vector>
+#include <string>
+#include "dictionary.h"
+
 struct wordID {
-	string word;
-	int id;
+    std::string word;
+    int id;
 };
 
 typedef struct nodeStruct {
-	nodeStruct * parent;
-	nodeStruct * left;
-	nodeStruct * right;
-	wordID * value;
-	int h;
+    nodeStruct * parent;
+    nodeStruct * left;
+    nodeStruct * right;
+    wordID * value;
+    int h;
 } node;
 
-class tree : public Dictionary {
-	private:
-		node * root;
-		int TotalWordNumber;
-		vector<string> WordByID;
-	public:
-		tree();
-		void print() const;
-		bool add(string const &) ;
-		int getNumber(string const &) const;
-        string getWord(int) const;
-		size_t WordNumber() const;
+class Tree : public Dictionary {
+private:
+    node * root;
+    int TotalWordNumber;
+    std::vector<std::string > WordByID;
+public:
+    Tree();
+    void print() const;
+    bool add(std::string  const &) ;
+    int getNumber(std::string  const &) const;
+    std::string  getWord(int) const;
+    size_t wordNumber() const;
 };
 
 #endif

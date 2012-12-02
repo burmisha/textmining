@@ -1,8 +1,9 @@
 #include "tree.h"
-
+#include <stdlib.h>
+#include <iostream>
 const int IMPOSSIBLE = -1;
 
-bool tree::add(string const & word)  {
+bool Tree::add(std::string const & word)  {
     if(checkWord(word) == 0) {
         return false;
     }
@@ -21,8 +22,8 @@ bool tree::add(string const & word)  {
             current = current->right;
         }
     }
-    if((current = (node*)malloc(sizeof(node))) == NULL) {
-        cout << "Can't malloc memory for new node" << endl;
+    if ((current = (node*)malloc(sizeof(node))) == NULL) {
+        std::cout << "Can't malloc memory for new node" << std::endl;
         return false;
     }
     current->value = new wordID;
@@ -43,21 +44,22 @@ bool tree::add(string const & word)  {
     return true;    //  added
 };
 
-tree::tree():   TotalWordNumber(0),
+Tree::Tree():
+    TotalWordNumber(0),
     WordByID(0) {
     if((root = (node *) malloc(sizeof(node))) == NULL) {
-        cout << "Can't malloc memory for new node" << endl;
+        std::cout << "Can't malloc memory for new node" << std::endl;
         return; // this is great breeeeeed
     }
     root->value = new wordID;
-    root->value->word = string("");
+    root->value->word = std::string("");
     root->value->id = IMPOSSIBLE;   //  addressing it must cause error
     root->left = NULL;
     root->parent = NULL;
     root->right = NULL;
-} ;
+}
 
-int tree::getNumber(string const & word)  const {
+int Tree::getNumber(std::string const & word)  const {
     node * current = root;
     while(current != NULL) {
         int comparation = current->value->word.compare(word);
@@ -73,16 +75,16 @@ int tree::getNumber(string const & word)  const {
     return -1; // no word
 }
 
-string tree::getWord(int n) const {
+std::string Tree::getWord(int n) const {
     if((n >= 0) && (n < TotalWordNumber)) {
         return WordByID[n];
     } else {
-        cout << "ERROR: No such Number!" << endl;
-        return string("");
+        std::cout << "ERROR: No such Number!" << std::endl;
+        return std::string("");
     }
 }
 
-size_t tree::WordNumber() const {
+size_t Tree::wordNumber() const {
     return TotalWordNumber;
 }
 
@@ -90,12 +92,12 @@ void printTree(node * root) {
     if(root->left != NULL) {
         printTree(root->left);
     }
-    cout << "|" << root->value->word << endl;
+    std::cout << "|" << root->value->word << std::endl;
     if(root->right != NULL) {
         printTree(root->right);
     }
 }
 
-void tree::print() const {
+void Tree::print() const {
     printTree(root);
 }
