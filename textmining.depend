@@ -1,0 +1,84 @@
+# depslib dependency file v1.0
+1344778174 source:d:\github\textmining\main.cpp
+	<iostream>
+	<sstream>
+	"file_handler.h"
+	"dict_map.h"
+	"docs_words.h"
+	"distance.h"
+	"phi_theta.h"
+	"hidden.h"
+	"algorithm.h"
+	"prepare.h"
+	"get_delta.h"
+	"update_time.h"
+	"stabilized.h"
+	"quality.h"
+
+1339274970 d:\github\textmining\file_handler.h
+	<string>
+	<fstream>
+
+1339272580 d:\github\textmining\dict_map.h
+	"dictionary.h"
+	<map>
+	<vector>
+
+1339272580 d:\github\textmining\dictionary.h
+	"file_handler.h"
+	<string>
+
+1339272024 d:\github\textmining\docs_words.h
+	<vector>
+	<utility>
+	"dictionary.h"
+	"file_handler.h"
+
+1344768514 d:\github\textmining\distance.h
+	"discrete.h"
+
+1340652026 d:\github\textmining\discrete.h
+	<vector>
+	<utility>
+
+1343914628 d:\github\textmining\phi_theta.h
+	<vector>
+	<set>
+	"discrete.h"
+	"docs_words.h"
+	"distance.h"
+
+1340667674 d:\github\textmining\hidden.h
+	<vector>
+	<utility>
+	"docs_words.h"
+
+1344769484 d:\github\textmining\algorithm.h
+	"docs_words.h"
+	"phi_theta.h"
+	"hidden.h"
+	"get_delta.h"
+	"stabilized.h"
+	"update_time.h"
+	"prepare.h"
+
+1340659556 d:\github\textmining\get_delta.h
+	<vector>
+	<utility>
+	"phi_theta.h"
+	"hidden.h"
+
+1339263034 d:\github\textmining\stabilized.h
+	"phi_theta.h"
+
+1339488786 d:\github\textmining\update_time.h
+	"docs_words.h"
+
+1339435036 d:\github\textmining\prepare.h
+	"phi_theta.h"
+
+1339397432 d:\github\textmining\quality.h
+	"docs_words.h"
+	"phi_theta.h"
+	"distance.h"
+
